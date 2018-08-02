@@ -22,15 +22,39 @@
 	<br>
 	<center style="font-size: 30px; padding: 20px;"><h2>Add Your Ride</h2></center>
 	<div class="editbox" action="">
-		<div class="textbox"><input type="text"  name="" placeholder="Name"></div>
-		<div class="textbox"><input type="text"  name="" placeholder="Route"></div>
-		<div class="textbox"><input type="text"  name="" placeholder="Time"></div>
+		<form id="addRide">
+		<div class="textbox"><input id="name" type="text"  name="" placeholder="Name"></div>
+		<div class="textbox"><input id="route" type="text"  name="" placeholder="Route"></div>
+		<div class="textbox"><input id="time" type="text"  name="" placeholder="Time"></div>
 		<br>
 		<div class="button"><input type="submit" class="button" name="" value="Add"></div>
+		</form>
 	</div>
 	<br>
 <div id="footer">
 	<p>&copy 2018 Ride-My-Way All Rights Reserved | Antony Kavooh</p>
 </div>
+<script type="text/javascript">
+	document.getElementById("addRide").addEventListener("submit",addRide);
+
+	function addRide(e){
+		e.preventDefault();
+		let name = document.getElementById("name").value;
+		let route = document.getElementById("route").value;
+		let time = document.getElementById("time").value;
+
+		fetch("http://127.0.0.1:5000/api/v2/rides",{
+			method: "POST",
+			mode: "cors",
+			headers: {
+				"Content-Type": "application/json",
+				"x-access-token": window.localStorage.getItem("x-access-token"),
+			},
+			body:JSON.stringify({"driver": name, "route": route, "time": time})
+		})
+		.then((res) => res.json())
+		.then((data) => console.log(data.txt))
+	}
+</script>
 </body>
 </html>
