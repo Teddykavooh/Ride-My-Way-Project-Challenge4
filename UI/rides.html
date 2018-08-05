@@ -21,34 +21,47 @@
 			<li style="float:right"><a href="Login.html">Login</a></li>
 		</ul>
 	</div>
-	<p>
-		<table class="ridemytable">
-			<center style="font-size: 30px; padding: 20px;"><h2>Available Rides</h2></center>
-			<th>ID</th>
-			<th>Driver</th>
-			<th>Route</th>
-			<th>Time</th>
-			<tr>
-				<td>01</td>
-				<td>Teddy Kavooh</td>
-				<td>Vota - Machakos</td>
-				<td>5:30am</td>
-				<td><div class="tooltip"><div class="tooltip"><a href="">Call-My-Ride</a><span class="tooltiptext">Ride available only to logged in users!</span>
-</div></div></td>
-			</tr>
-			<tr>
-				<td>02</td>
-				<td>Ian Maingi</td>
-				<td>Machakos - Nairobi</td>
-				<td>6:10am</td>
-				<td><div class="tooltip"><div class="tooltip"><a href="">Call-My-Ride</a><span class="tooltiptext">Ride available only to logged in users!</span>
-</div></div></td>
-			</tr>
-		</table>
-	</p>
+	<br>
+		<table id="table_hd" class="ridemytable">
+            <center style="font-size: 30px; padding: 20px;"><h2>Available Rides</h2></center>
+        </table>
+		<table id="me_table" class="ridemytable"></table>
 	<br>
 <div id="footer">
 	<p>&copy 2018 Ride-My-Way All Rights Reserved | Antony Kavooh</p>
 </div>
+<script>
+	window.addEventListener('load', getRides);
+	// document.getElementById("getRides").addEventListener("click",getRides);
+	function getRides(e){
+	     e.preventDefault();
+	    fetch("http://127.0.0.1:5000/api/v2/rides", {
+         headers: {'Content-Type': 'application/json'}
+    })
+			.then((res) => res.json())
+			.then((data) => {
+			    console.log(data)
+			let table_header = `<th>ID</th>
+							<th>Driver</th>
+							<th>Route</th>
+							<th>Time</th>`;
+				let output = ''
+			    data.forEach(function(rides){
+			        output += `
+						<tr>
+						<td>${rides.ride_id}</td>
+						<td>${rides.driver}</td>
+						<td>${rides.route}</td>
+						<td>${rides.time}</td>
+						<td><div class="tooltip"><div class="tooltip">
+						<a href="">Call-My-Ride</a><span class="tooltiptext">Ride available only to logged in users!</span></div></div></td>
+						</tr>`;
+			        document.getElementById("table_hd").innerHTML = table_header;
+			        document.getElementById("me_table").innerHTML = output;
+
+                })
+			})
+	}
+</script>
 </body>
 </html>
