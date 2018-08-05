@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Request Ride</title>
+	<link rel="stylesheet" type="text/css" href="defaultstyle.css">
+	<link rel="stylesheet" type="text/css" href="mystyle.css">
+	<link href="https://fonts.googleapis.com/css?family=Titan+One" rel="stylesheet">
+</head>
+<body>
+	<h1>
+		Ride-My-Way
+	</h1>
+	<div class="navbar">
+		<ul>
+			<li><a href="history.html">Profile</a></li>
+			<li><a href="userrides.html">Rides</a></li>
+			<li><a href="mkridereq.html" class="active">ReqRide</a></li>
+			<li style="float:right"><a href="Login.html">Logout</a></li>
+		</ul>
+	</div>
+	<br>
+    <br>
+	<center style="font-size: 30px; padding: 20px; margin: -50px;"><h2>Request Your Ride</h2></center>
+	<div class="editbox">
+		<form id="reqRide">
+		<div class="textbox"><input id="my_rideId" type="text"  name="" placeholder="Ride Id"></div>
+		<div class="textbox"><input id="name" type="text"  name="" placeholder="Passenger Name"></div>
+		<div class="textbox"><input id="station" type="text"  name="" placeholder="Pick Up Station"></div>
+		<div class="textbox"><input id="time" type="text"  name="" placeholder="Time"></div>
+		<br>
+		<br>
+		<div class="button"><input type="submit" class="button" name="" value="Request"></div>
+		</form>
+	</div>
+	<br>
+    <br>
+    <br>
+    <br>
+    <br>
+	<br>
+    <br>
+    <br>
+    <br>
+<div id="footer">
+	<p>&copy 2018 Ride-My-Way All Rights Reserved | Antony Kavooh</p>
+</div>
+<script type="text/javascript">
+	document.getElementById("reqRide").addEventListener("submit",reqRide);
+
+	function reqRide(e){
+		e.preventDefault();
+
+		let rideId = document.getElementById("my_rideId").value;
+		const data = {"id": rideId};
+		const encodedValue = encodeURIComponent(data.id);
+		let name = document.getElementById("name").value;
+		let station = document.getElementById("station").value;
+		let time = document.getElementById("time").value;
+
+		fetch(`http://127.0.0.1:5000/api/v2/rides/${encodedValue}/requests`,{
+			method: "POST",
+			mode: "cors",
+			headers: {
+				"Content-Type": "application/json",
+				"x-access-token": window.localStorage.getItem("x-access-token"),
+			},
+			body:JSON.stringify({"ride_id": rideId, "passenger_name": name, "pick_up_station": station, "time": time})
+		})
+		.then((res) => res.json())
+		.then((data) => console.log(data.txt))
+	}
+</script>
+</body>
+</html>
