@@ -21,10 +21,23 @@
 		</ul>
 	</div>
 	<br>
-		<table id="table_hd" class="ridemytable">
-            <center style="font-size: 30px; padding: 20px;"><h2>Available Rides</h2></center>
-        </table>
-		<table id="me_table" class="ridemytable"></table>
+		<!--<table id="table_hd" class="ridemytable">-->
+            <!--<center style="font-size: 30px; padding: 20px;"><h2>Available Rides</h2></center>-->
+        <!--</table>-->
+		<!--<table id="me_table" class="ridemytable"></table>-->
+	<table class="ridemytable">
+		<center style="font-size: 30px; padding: 20px;"><h2>Available Rides</h2></center>
+        <thead>
+			<tr>
+				<th>ID</th>
+				<th>Driver</th>
+				<th>Route</th>
+				<th>Time</th>
+				<th>Action</th>
+			</tr>
+    </thead>
+		<tbody id="me_table"></tbody>
+    </table>
 	<br>
 <div id="footer">
 	<p>&copy 2018 Ride-My-Way All Rights Reserved | Antony Kavooh</p>
@@ -40,10 +53,10 @@
 			.then((res) => res.json())
 			.then((data) => {
 			    console.log(data)
-			let table_header = `<th>ID</th>
-							<th>Driver</th>
-							<th>Route</th>
-							<th>Time</th>`;
+			// let table_header = `<th>ID</th>
+			// 				<th>Driver</th>
+			// 				<th>Route</th>
+			// 				<th>Time</th>`;
 				let output = ''
 			    data.forEach(function(rides){
 			        output += `
@@ -53,9 +66,9 @@
 						<td>${rides.route}</td>
 						<td>${rides.time}</td>
 						<td><div class="tooltip"><div class="tooltip">
-						<a href="">Call-My-Ride</a><span class="tooltiptext">Ride available only to logged in users!</span></div></div></td>
+						<a href="Login.html">Call-My-Ride</a><span class="tooltiptext">Ride available only to logged in users!</span></div></div></td>
 						</tr>`;
-			        document.getElementById("table_hd").innerHTML = table_header;
+			        // document.getElementById("table_hd").innerHTML = table_header;
 			        document.getElementById("me_table").innerHTML = output;
 
                 })

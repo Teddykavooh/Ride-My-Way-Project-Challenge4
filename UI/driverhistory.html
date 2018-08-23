@@ -16,7 +16,7 @@
 			<li><a href="driverhistory.html" class="active">Profile</a></li>
 			<li><a href="ridespr.html">Rides</a></li>
 			<li><a href="ridedit.html">Ridedit</a></li>
-			<li style="float:right"><a href="Login.html">Logout</a></li>
+			<li style="float:right"><a href="#" id="logout">Logout</a></li>
 		</ul>
 	</div>
 	<p>
@@ -52,5 +52,13 @@
 <div id="footer">
 	<p>&copy 2018 Ride-My-Way All Rights Reserved | Antony Kavooh</p>
 </div>
+<script>
+		document.getElementById('logout').addEventListener('click', logoutUser)
+		function logoutUser(e){
+	    e.preventDefault();
+	    localStorage.clear()
+			window.location.replace('Login.html')
+	}
+</script>
 </body>
 </html>

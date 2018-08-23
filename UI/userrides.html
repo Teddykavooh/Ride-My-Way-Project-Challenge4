@@ -17,7 +17,7 @@
 			<li><a href="history.html">Profile</a></li>
 			<li><a href="userrides.html" class="active">Rides</a></li>
 			<li><a href="mkridereq.html">ReqRide</a></li>
-			<li style="float:right"><a href="Login.html">Logout</a></li>
+			<li style="float:right"><a href="#" id="logout">Logout</a></li>
 		</ul>
 	</div>
 	<br>
@@ -60,6 +60,12 @@
 
                 })
 			})
+	}
+		document.getElementById('logout').addEventListener('click', logoutUser)
+		function logoutUser(e){
+	    e.preventDefault();
+	    localStorage.clear()
+			window.location.replace('Login.html')
 	}
 </script>
 </body>

@@ -16,7 +16,7 @@
 			<li><a href="history.html">Profile</a></li>
 			<li><a href="userrides.html">Rides</a></li>
 			<li><a href="mkridereq.html" class="active">ReqRide</a></li>
-			<li style="float:right"><a href="Login.html">Logout</a></li>
+			<li style="float:right"><a href="#" id="logout">Logout</a></li>
 		</ul>
 	</div>
 	<br>
@@ -69,6 +69,12 @@
 		})
 		.then((res) => res.json())
 		.then((data) => console.log(data.txt))
+	}
+	document.getElementById('logout').addEventListener('click', logoutUser)
+		function logoutUser(e){
+	    e.preventDefault();
+	    localStorage.clear()
+			window.location.replace('Login.html')
 	}
 </script>
 </body>

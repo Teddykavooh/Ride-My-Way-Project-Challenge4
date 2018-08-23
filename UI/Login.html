@@ -24,8 +24,9 @@
 		<img src="Images/avatar.png" class="myavatar">
 		<div class="l"><h1>Login Here</h1></div>
 		<form id="loginUser">
-			<p>Username</p>
-			<input id="name" type="text" name="" placeholder="Enter Username" required="">
+			<p id="error"></p>
+			<p>E-Mail</p>
+			<input id="mail" type="email" name="" placeholder="Enter Email" required="">
 			<p>Password</p>
 			<input id="pass" type="text" name="" placeholder="Enter Password" required="">
 			<input type="submit" name="" value="Login">
@@ -48,7 +49,7 @@
 
 	function loginUser(e){
 		e.preventDefault();
-		let name = document.getElementById("name").value;
+		let mail = document.getElementById("mail").value;
 		let pass = document.getElementById("pass").value;
 
 		fetch("http://127.0.0.1:5000/api/v2/users/login",{
@@ -57,15 +58,26 @@
 			headers: {
 				"Content-Type": "application/json"
 			},
-			body:JSON.stringify({"username":name, "password":pass})
+			body:JSON.stringify({"email":mail, "password":pass})
 		})
 		.then((res) => res.json())
 		.then((data) => {
-		 console.log(data.txt, data.token)
+		    if (data["txt"]){
+           document.getElementById('error').innerHTML = data["txt"]
+       }
+		//  console.log(data.txt, data.token)
 			if (data.token){
 	           window.localStorage.setItem("x-access-token", data.token);
-
        }
+        let token = window.localStorage.getItem("x-access-token", data.token);
+
+		let payload = JSON.parse(atob(token.split('.')[1]));
+		if (payload.driver){
+               window.location.replace('driverhistory.html')
+           }
+		else{
+               window.location.replace('history.html')
+           }
        // window.localStorage.getItem("x-access-token", data.token);
        // console.log(data.token)
        })
